@@ -1,5 +1,8 @@
 # Slack Send GitHub Action
 
+
+Forked from https://github.com/slackapi/slack-github-action.
+
 Send data into Slack using this GitHub Action!
 
 ## Sending Variables
@@ -20,61 +23,7 @@ The recommended way to use this action is with Slack's Workflow Builder (if you'
 
 ### Technique 1: Slack Workflow Builder
 
-> ❗️ This approach requires a paid Slack plan
-
-Sending data to [Slack's Workflow builder](https://slack.com/features/workflow-automation) is the recommended way to use this action. This action will send data into Slack via a webhook URL. Follow [these steps to create a Slack workflow using webhooks][create-webhook]. The Slack workflow webhook URL will be in the form `https://hooks.slack.com/workflows/....`. The payload sent by this GitHub action will be flattened (all nested keys moved to the top level) and stringified since Slack's workflow builder only supports top level string values in payloads.
-
-As part of the [workflow setup](https://slack.com/help/articles/360041352714-Create-more-advanced-workflows-using-webhooks#workflow-setup),
-you will need to define expected variables in the payload the webhook will receive (described in the "Create custom variables" section of the docs). If these variables are missing in the payload, an error is returned.
-
-#### Setup
-
-* [Create a Slack workflow webhook][create-webhook].
-* Copy the webhook URL (`https://hooks.slack.com/workflows/....`) and [add it as a secret in your repo settings][repo-secret] named `SLACK_WEBHOOK_URL`.
-* Add a step to your GitHub action to send data to your Webhook.
-* Configure your Slack workflow to use variables from the incoming payload from the GitHub Action. You can select where you want to post the data and how you want to format it in Slack's workflow builder interface.
-
-#### Usage
-
-Add this Action as a [step][job-step] to your project's GitHub Action Workflow file:
-
-```yaml
-- name: Send GitHub Action trigger data to Slack workflow
-  id: slack
-  uses: slackapi/slack-github-action@v1.24.0
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-```
-
-or
-
-```yaml
-- name: Send custom JSON data to Slack workflow
-  id: slack
-  uses: slackapi/slack-github-action@v1.24.0
-  with:
-    # This data can be any valid JSON from a previous step in the GitHub Action
-    payload: |
-      {
-        "key": "value",
-        "foo": "bar"
-      }
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-```
-or
-
-> If the `payload` is provided it will take preference over `payload-file-path`
-
-```yaml
-- name: Send custom JSON data to Slack workflow
-  id: slack
-  uses: slackapi/slack-github-action@v1.24.0
-  with:
-    payload-file-path: "./payload-slack-content.json"
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-```
+Removed
 
 ### Technique 2: Slack App
 
