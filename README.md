@@ -5,6 +5,8 @@ Forked from https://github.com/slackapi/slack-github-action.
 
 Send data into Slack using this GitHub Action!
 
+This action is intended for internal usage only.
+
 ## Sending Variables
 
 You can send GitHub-specific data related to GitHub Action workflow events using [GitHub Contexts](https://docs.github.com/en/actions/learn-github-actions/contexts) and [Variables](https://docs.github.com/en/actions/learn-github-actions/variables) that GitHub Actions provides.
