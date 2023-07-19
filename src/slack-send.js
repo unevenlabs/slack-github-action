@@ -7,13 +7,34 @@ const markup = require('markup-js');
 const { createWebClient } = require('./web-client');
 
 const authors = {
-  d3or: 'U04S33SE7G8',
-  'devops-unevenlabs': 'U04NS0VMWNN',
-  fdmota: 'U04NS0VMWNN',
-  georgeroman: 'U03MA663BA6',
-  ipeleg: 'U03MCJ37NLU',
-  nofir: 'U03M3HRPV70',
-  tv3636: 'U04H7HTDEH1',
+  d3or: {
+    id: 'U04S33SE7G8',
+    name: 'Deor',
+  },
+  'devops-unevenlabs': {
+    id: 'U04NS0VMWNN',
+    name: 'Filipe',
+  },
+  fdmota: {
+    id: 'U04NS0VMWNN',
+    name: 'Filipe',
+  },
+  georgeroman: {
+    id: 'U03MA663BA6',
+    name: 'Goerge',
+  },
+  ipeleg: {
+    id: 'U03MCJ37NLU',
+    name: 'Idan',
+  },
+  nofir: {
+    id: 'U03M3HRPV70',
+    name: 'Ofir',
+  },
+  tv3636: {
+    id: 'U04H7HTDEH1',
+    name: 'Tom',
+  },
 }
 
 const status = {
@@ -31,27 +52,19 @@ module.exports = async function slackSend(core) {
 
     let payload = core.getInput('payload');
 
-    // let payload = `{
-    //   "text": "GitHub build result: <status-failure-status> Author: <author-fdmota-author> ",
-    //   "blocks": [
-    //     {
-    //       "type": "section",
-    //       "text": {
-    //         "type": "mrkdwn",
-    //         "text": "test please ignore GitHub build result: <status-failure-status> Author: <author-fdmota2-author> "
-    //       }
-    //     }
-    //   ]
-    // }
-    // `;
     let webResponse;
 
+    const notify_user = payload.search('<status-success-status>') === -1;
     if (payload) {
       for (const s in status) {
         payload = payload.replaceAll(`<status-${s}-status>`, status[s]);
       }
       for (const a in authors) {
-        payload = payload.replaceAll(`<author-${a}-author>`, `<@${authors[a]}>`);
+        if (notify_user) {
+          payload = payload.replaceAll(`<author-${a}-author>`, `<@${authors[a].id}>`);
+        } else {
+          payload = payload.replaceAll(`<author-${a}-author>`, `${authors[a].name}`);
+        }
       }
       try {
         // confirm it is valid json
