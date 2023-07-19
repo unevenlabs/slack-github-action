@@ -147,43 +147,7 @@ Please note that **the message update step does not accept a channel name.** Set
 
 ### Technique 3: Slack Incoming Webhook
 
-This approach allows your GitHub Actions job to post a message to a Slack channel or direct message by utilizing [Incoming Webhooks](https://api.slack.com/messaging/webhooks).
-
-Incoming Webhooks conform to the same rules and functionality as any of Slack's other messaging APIs. You can make your posted messages as simple as a single line of text, or make them really useful with [interactive components](https://api.slack.com/messaging/interactivity). To make the message more expressive and useful use [Block Kit](https://api.slack.com/block-kit) to build and test visual components.
-
-#### Setup
-
-* [Create a Slack App][apps] for your workspace (alternatively use an existing app you have already created and installed).
-* Add the [`incoming-webhook`](https://api.slack.com/scopes/incoming-webhook) bot scope under **OAuth & Permissions**.
-* Install the app to your workspace (you will select a channel to notify).
-* Activate and create a new webhook under **Incoming Webhooks**.
-* Copy the Webhook URL from the Webhook you just generated [add it as a secret in your repo settings][repo-secret] named `SLACK_WEBHOOK_URL`.
-
-#### Usage
-
-```yaml
-- name: Send custom JSON data to Slack workflow
-  id: slack
-  uses: slackapi/slack-github-action@v1.24.0
-  with:
-    # For posting a rich message using Block Kit
-    payload: |
-      {
-        "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-        "blocks": [
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-            }
-          }
-        ]
-      }
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-```
+Removed
 
 ### HTTPS Proxy
 
