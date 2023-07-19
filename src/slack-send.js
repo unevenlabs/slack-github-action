@@ -21,7 +21,7 @@ const authors = {
   },
   georgeroman: {
     id: 'U03MA663BA6',
-    name: 'Goerge',
+    name: 'George',
   },
   ipeleg: {
     id: 'U03MCJ37NLU',
